@@ -1,0 +1,47 @@
+.mapContainer {
+  flex: 1;
+  height: 100%;
+  background-color: var(--color-brand--1);
+  position: relative;
+  border-radius: 7px;
+}
+
+.map {
+  height: 100%;
+  border-radius: 7px;
+}
+
+:global(.leaflet-popup .leaflet-popup-content-wrapper) {
+  background-color: var(--color-dark--1);
+  color: var(--color-light--2);
+  gap: 1rem;
+  border-radius: 5px;
+  padding-right: 0.6rem;
+}
+
+:global(.leaflet-popup .leaflet-popup-content) {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 0;
+  margin: 0 20px 0 0;
+}
+
+:global(.leaflet-popup .leaflet-popup-content span:first-child) {
+  font-size: 1rem;
+  line-height: 1;
+  align-self: start;
+  background-color: var(--color-brand--2);
+  border-radius: 5px;
+  padding: 1rem;
+  margin-right: 1rem;
+}
+
+:global(.leaflet-popup .leaflet-popup-tip) {
+  background-color: var(--color-dark--1);
+}
+
+/* :global(.leaflet-popup-content-wrapper) {
+ border-left: 4rem solid var(--color-brand--2);
+} */
