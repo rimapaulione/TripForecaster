@@ -1,5 +1,5 @@
-import styles from "./PageNotFound.module.css";
 import { useMoveBack } from "../hooks/useMoveBack";
+import styles from "./PageNotFound.module.css";
 import BackButton from "../ui/BackButton";
 
 function PageNotFound() {

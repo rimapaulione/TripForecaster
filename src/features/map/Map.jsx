@@ -59,7 +59,7 @@ function Map() {
     },
     [geolocationPosition, error]
   );
-  console.log("test");
+
   return (
     <div className={styles.mapContainer}>
       <Button type="position" onClick={getPosition}>

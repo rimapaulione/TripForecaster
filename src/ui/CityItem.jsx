@@ -1,14 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./CityItem.module.css";
 import { Link } from "react-router-dom";
 import { URL } from "../utils/constants";
 import { deleteCity } from "../features/map/mapSlice";
 import { deleteForecast } from "../features/forecast/forecastSlice";
+import styles from "./CityItem.module.css";
 
 function CityItem({ city }) {
   const { activeCity } = useSelector((state) => state.map);
   const dispath = useDispatch();
-
   const { name: cityName, weather, id, lat, lng, temp } = city;
 
   function handleClick(e) {

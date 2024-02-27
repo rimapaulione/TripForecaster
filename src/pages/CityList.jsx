@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
+
 import styles from "./CityList.module.css";
 import Message from "../ui/Message";
-
 import CityItem from "../ui/CityItem";
 import Spinner from "../ui/Spinner";
 import Error from "../ui/Error";

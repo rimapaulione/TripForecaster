@@ -42,6 +42,4 @@
   background-color: var(--color-dark--1);
 }
 
-/* :global(.leaflet-popup-content-wrapper) {
- border-left: 4rem solid var(--color-brand--2);
-} */
+

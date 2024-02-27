@@ -2,15 +2,14 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import { getCity } from "../features/map/mapSlice";
-
 import { useMoveBack } from "../hooks/useMoveBack";
 import { fetchForecastByCoordinates } from "../services/weatherService";
 import { getHighestTempForecasts } from "../utils/helpers";
+import { HiOutlineChevronRight } from "react-icons/hi2";
 
 import styles from "./City.module.css";
 import BackButton from "../ui/BackButton";
 import CityForecast from "../ui/CityForecast";
-import { HiOutlineChevronRight } from "react-icons/hi2";
 
 function City() {
   const { id } = useParams();
@@ -53,7 +52,7 @@ function City() {
       </div>
 
       <BackButton onClick={moveBack} type="back">
-        &larr; Go back
+        Go back
       </BackButton>
     </>
   );

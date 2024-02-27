@@ -5,12 +5,13 @@ import {
 } from "react-router-dom";
 
 import PageNotFound from "./pages/PageNotFound";
+import AppLayout from "./ui/AppLayout";
 import Home from "./pages/Home";
+import Forecast from "./pages/Forecast";
 import WeatherLayout from "./ui/WeatherLayout";
 import CityList from "./pages/CityList";
 import City, { loader as loaderForecast } from "./pages/City";
-import Forecast from "./pages/Forecast";
-import AppLayout from "./ui/AppLayout";
+import ForecastSidebar from "./pages/ForecastSidebar";
 import Error from "./ui/Error";
 
 const router = createBrowserRouter([
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Home /> },
           //{ path: "login", element: <Login /> }, @Todo complete login and auth
-          //{ path: "forecast", element: <Forecast /> },
+          { path: "forecast", element: <Forecast /> },
         ],
       },
       {
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
             loader: loaderForecast,
             errorElement: <Error />,
           },
-          { path: "forecast", element: <Forecast /> },
+          { path: "forecast", element: <ForecastSidebar /> },
         ],
       },
     ],
