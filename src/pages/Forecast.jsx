@@ -3,10 +3,12 @@ import { useSelector } from "react-redux";
 
 import CityForecast from "../ui/CityForecast";
 import styles from "./Forecast.module.css";
+import Message from "../ui/Message";
 
 function Forecast() {
   const { forecasts } = useSelector((state) => state.forecast);
-  console.log(forecasts);
+
+  if (forecasts.length === 0) return <Message message="Start adding cities" />;
 
   return (
     <>

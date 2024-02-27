@@ -17,7 +17,6 @@ function City() {
   const dispatch = useDispatch();
   const moveBack = useMoveBack();
   const forecast = useLoaderData();
-  console.log(forecast);
 
   useEffect(
     function () {

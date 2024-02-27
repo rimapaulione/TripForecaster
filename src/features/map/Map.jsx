@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import {
   MapContainer,
   Marker,
@@ -11,27 +12,42 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWeather } from "./mapSlice";
 import { useGeolocation } from "../../hooks/useGeolocation";
-
-import styles from "./Map.module.css";
-import Spinner from "../../ui/Spinner";
-import { useParams } from "react-router-dom";
 import { fetchForecast } from "../forecast/forecastSlice";
 
+import styles from "./Map.module.css";
+import Button from "../../ui/Button";
+
 function Map() {
-  const [mapPosition, setMapPosition] = useState();
   const { cities } = useSelector((state) => state.map);
+  const [mapPosition, setMapPosition] = useState([55, 23]);
+  const [searchParams] = useSearchParams();
 
   const {
+    isLoading,
     position: geolocationPosition,
     getPosition,
     error,
   } = useGeolocation();
 
+  const mapLat = searchParams.get("lat");
+  const mapLng = searchParams.get("lng");
+
   useEffect(
     function () {
-      if (!mapPosition) getPosition();
+      if (cities.length !== 0) {
+        const { lat } = cities.slice(-1)[0];
+        const { lng } = cities.slice(-1)[0];
+        setMapPosition([lat, lng]);
+      }
     },
-    [getPosition, mapPosition]
+    [cities]
+  );
+
+  useEffect(
+    function () {
+      if (mapLat && mapLng) setMapPosition([mapLat, mapLng]);
+    },
+    [mapLat, mapLng]
   );
 
   useEffect(
@@ -39,40 +55,40 @@ function Map() {
       if (geolocationPosition)
         setMapPosition([geolocationPosition.lat, geolocationPosition.lng]);
 
-      if (error) setMapPosition([10, 24]);
+      if (error) setMapPosition([55, 23]);
     },
     [geolocationPosition, error]
   );
-
+  console.log("test");
   return (
     <div className={styles.mapContainer}>
-      {!mapPosition ? (
-        <Spinner />
-      ) : (
-        <MapContainer
-          center={mapPosition}
-          zoom={7}
-          closePopupOnClick={false}
-          scrollWheelZoom={true}
-          className={styles.map}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {cities.map((city) => (
-            <Marker position={[city.lat, city.lng]} key={city.id}>
-              <Popup autoClose={false}>
-                <span>{`${Math.floor(city.temp)}°C `}</span>
-                <span>{` ${city.name}`}</span>{" "}
-              </Popup>
-            </Marker>
-          ))}
+      <Button type="position" onClick={getPosition}>
+        {isLoading ? "Loading..." : "Get Position"}
+      </Button>
+      <MapContainer
+        center={mapPosition}
+        zoom={5}
+        closePopupOnClick={false}
+        scrollWheelZoom={true}
+        className={styles.map}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {cities.map((city) => (
+          <Marker position={[city.lat, city.lng]} key={city.id}>
+            <Popup autoClose={false}>
+              <span>{`${Math.floor(city.temp)}°C `}</span>
+              <span>{` ${city.name}`}</span>{" "}
+            </Popup>
+          </Marker>
+        ))}
 
-          <ChangeCenter position={mapPosition} />
-          <DetectClick />
-        </MapContainer>
-      )}
+        <ChangeCenter position={mapPosition} />
+        <DetectClick />
+      </MapContainer>
+      )
     </div>
   );
 }
